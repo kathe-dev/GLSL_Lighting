@@ -78,6 +78,9 @@
     <ClInclude Include="AbrirMalla.h" />
     <ClInclude Include="ClassSugarcane.h" />
     <ClInclude Include="ClassBridge.h" />
+    <ClInclude Include="ClassChair.h" />
+    <ClInclude Include="ClassTree.h" />
+    <ClInclude Include="ClassTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -168,6 +171,9 @@
     <ClCompile Include="AbrirMalla.cpp" />
     <ClCompile Include="ClassSugarcane.cpp" />
     <ClCompile Include="ClassBridge.cpp" />
+    <ClCompile Include="ClassChair.cpp" />
+    <ClCompile Include="ClassTree.cpp" />
+    <ClCompile Include="ClassTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">

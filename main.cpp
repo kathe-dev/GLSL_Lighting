@@ -12,6 +12,9 @@
 #include "AbrirMalla.h"
 #include "ClassSugarcane.h"
 #include "ClassBridge.h"
+#include "ClassChair.h"
+#include "ClassTree.h"
+#include "ClassTable.h"
 
 //-----------------------------------------------------------------------------
 
@@ -28,6 +31,9 @@ protected:
     bool bUp;        // flag if counting up or down.
     ClassSugarcane* miCane;
     ClassBridge* miBridge;
+    ClassChair* miChair;
+    ClassTree* miTree;
+    ClassTable* miTable;
 
 
 public:
@@ -50,6 +56,9 @@ public:
         //miMalla->DibujarMalla();
         miCane->DibujarSugarCane();
         miBridge->DibujarBridge();
+        miChair->DibujarChair();
+        miTree->DibujarTree();
+        miTable->DibujarTable();
 
         //hacer edificios
         //Edificios[0].DibujarEdificio(0, 0, 0);
@@ -152,6 +161,9 @@ public:
         
         miCane = new ClassSugarcane();
         miBridge = new ClassBridge();
+        miChair = new ClassChair();
+        miTree = new ClassTree();
+        miTable = new ClassTable();
 
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);

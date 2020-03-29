@@ -91,7 +91,10 @@
   <ItemGroup>
     <ClInclude Include="AbrirMalla.h" />
     <ClInclude Include="ClassBridge.h" />
+    <ClInclude Include="ClassChair.h" />
     <ClInclude Include="ClassSugarcane.h" />
+    <ClInclude Include="ClassTable.h" />
+    <ClInclude Include="ClassTree.h" />
     <ClInclude Include="cwc\include\glApplication.h" />
     <ClInclude Include="cwc\include\glsl.h" />
     <ClInclude Include="cwc\include\glutwindow.h" />
@@ -110,7 +113,10 @@
   <ItemGroup>
     <ClCompile Include="AbrirMalla.cpp" />
     <ClCompile Include="ClassBridge.cpp" />
+    <ClCompile Include="ClassChair.cpp" />
     <ClCompile Include="ClassSugarcane.cpp" />
+    <ClCompile Include="ClassTable.cpp" />
+    <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="cwc\source\glApplication.cpp" />
     <ClCompile Include="cwc\source\glsl.cpp" />
     <ClCompile Include="cwc\source\glutwindow.cpp" />
