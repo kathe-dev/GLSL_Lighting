@@ -55,10 +55,13 @@ public:
 
         //miMalla->DibujarMalla();
         miCane->DibujarSugarCane();
+        glPushMatrix();
+        glTranslatef(2.0f, 0.0f, -2.0f);
         miBridge->DibujarBridge();
-        miChair->DibujarChair();
+        glPopMatrix();
+        /*miChair->DibujarChair();
         miTree->DibujarTree();
-        miTable->DibujarTable();
+        miTable->DibujarTable();*/
 
         //hacer edificios
         //Edificios[0].DibujarEdificio(0, 0, 0);
@@ -195,11 +198,14 @@ public:
 
         glViewport(0, 0, w, h);
 
-        gluPerspective(45, ratio, 1, 100);
+        gluPerspective(45, ratio, 1, 500);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        gluLookAt(0.0f, 0.0f, 4.0f,
+        /*gluLookAt(0.0f, 0.0f, 4.0f,
             0.0, 0.0, -1.0,
+            0.0f, 1.0f, 0.0f);*/
+        gluLookAt(0.0f, 1.0f, 8.0f,
+            0.0, 0.0, -6.0,
             0.0f, 1.0f, 0.0f);
     }
     virtual void OnClose(void) {}
