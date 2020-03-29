@@ -9,10 +9,9 @@
 #include <iostream>
 #include "glsl.h"
 #include <time.h>
-#include "ClassArbol.h"
 #include "AbrirMalla.h"
-#include "ClassEdificio.h"
 #include "ClassSugarcane.h"
+#include "ClassBridge.h"
 
 //-----------------------------------------------------------------------------
 
@@ -27,10 +26,8 @@ protected:
     clock_t time0, time1;
     float timer010;  // timer counting 0->1->0
     bool bUp;        // flag if counting up or down.
-    ClassArbol Jardin[NUM_ARBOLES];
-    ClassEdificio Edificios[NUM_ARBOLES];
-    //AbrirMalla* miMalla;
     ClassSugarcane* miCane;
+    ClassBridge* miBridge;
 
 
 public:
@@ -52,6 +49,7 @@ public:
 
         //miMalla->DibujarMalla();
         miCane->DibujarSugarCane();
+        miBridge->DibujarBridge();
 
         //hacer edificios
         //Edificios[0].DibujarEdificio(0, 0, 0);
@@ -145,14 +143,15 @@ public:
 
  
     {
-        for (int i = 0; i < NUM_ARBOLES; i++)
+        /*for (int i = 0; i < NUM_ARBOLES; i++)
         {
             Jardin[i] = ClassArbol();
             Edificios[i] = ClassEdificio();
-        }
+        }*/
 
-        //miMalla = new AbrirMalla("./mallas/Tree_OBJ.obj");
+        
         miCane = new ClassSugarcane();
+        miBridge = new ClassBridge();
 
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);

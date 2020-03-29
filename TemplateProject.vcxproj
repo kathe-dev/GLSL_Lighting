@@ -90,8 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbrirMalla.h" />
-    <ClInclude Include="ClassArbol.h" />
-    <ClInclude Include="ClassEdificio.h" />
+    <ClInclude Include="ClassBridge.h" />
     <ClInclude Include="ClassSugarcane.h" />
     <ClInclude Include="cwc\include\glApplication.h" />
     <ClInclude Include="cwc\include\glsl.h" />
@@ -110,8 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbrirMalla.cpp" />
-    <ClCompile Include="ClassArbol.cpp" />
-    <ClCompile Include="ClassEdificio.cpp" />
+    <ClCompile Include="ClassBridge.cpp" />
     <ClCompile Include="ClassSugarcane.cpp" />
     <ClCompile Include="cwc\source\glApplication.cpp" />
     <ClCompile Include="cwc\source\glsl.cpp" />

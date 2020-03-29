@@ -76,9 +76,8 @@
       <Filter>glm</Filter>
     </ClInclude>
     <ClInclude Include="AbrirMalla.h" />
-    <ClInclude Include="ClassArbol.h" />
-    <ClInclude Include="ClassEdificio.h" />
     <ClInclude Include="ClassSugarcane.h" />
+    <ClInclude Include="ClassBridge.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -167,9 +166,8 @@
       <Filter>glm</Filter>
     </ClCompile>
     <ClCompile Include="AbrirMalla.cpp" />
-    <ClCompile Include="ClassArbol.cpp" />
-    <ClCompile Include="ClassEdificio.cpp" />
     <ClCompile Include="ClassSugarcane.cpp" />
+    <ClCompile Include="ClassBridge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
