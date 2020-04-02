@@ -2,6 +2,13 @@
 // Sample Application: Lighting (Per Fragment Phong)
 //=============================================================================
 
+
+//PROYECTO DE COMPUTACON GRAFICA
+//REALIZADO POR:
+//JUAN JOSE BETANCOURT
+//CAMILA PALADINES
+//KATHERINE RAMIREZ
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include "glApplication.h"
@@ -15,6 +22,7 @@
 #include "ClassChair.h"
 #include "ClassTree.h"
 #include "ClassTable.h"
+#include "ClassFloor.h"
 
 //-----------------------------------------------------------------------------
 
@@ -34,6 +42,7 @@ protected:
     ClassChair* miChair;
     ClassTree* miTree;
     ClassTable* miTable;
+    ClassFloor* miFloor;
 
 
 public:
@@ -47,92 +56,52 @@ public:
         //timer010 = 0.09; //for screenshot!
         glPushMatrix();
 
-        //glRotatef(45, movimientoX, movimientoY, movimientoZ);
-
         //control TX locales
         glPushMatrix();
         if (shader) shader->begin();
 
-        //miMalla->DibujarMalla();
-        miCane->DibujarSugarCane();
+        //posiciona y dibuja la caña de azucar
         glPushMatrix();
-        glTranslatef(2.0f, 0.0f, -2.0f);
+        glTranslatef(0.5f, 1.4f, -4.0f);
+        glScalef(1.5f, 1.5f, 1.5f);
+        miCane->DibujarSugarCane();
+        glPopMatrix();
+
+        //posiciona y dibuja el puente
+        glPushMatrix();
+        glTranslatef(0.0f, 0.7f, 4.0f);
+        glScalef(3.0f, 3.0f, 3.0f);
+        glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
         miBridge->DibujarBridge();
         glPopMatrix();
-        /*miChair->DibujarChair();
+
+        //posiciona y dibuja la silla
+        glPushMatrix();
+        glTranslatef(-3.0f, 0.91f, 0.0f);
+        glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+        miChair->DibujarChair();
+        glPopMatrix();
+        
+        //posiciona y dibuja el arbol
+        glPushMatrix();
+        glTranslatef(-4.5f, 3.0f, 0.0f);
+        glScalef(3.0f, 3.0f, 3.0f);
         miTree->DibujarTree();
-        miTable->DibujarTable();*/
+        glPopMatrix();
+        
+        //posiciona y dibuja la mesa
+        glPushMatrix();
+        glTranslatef(-2.0f, 0.3f, 0.0f);
+        glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+        miTable->DibujarTable();
+        glPopMatrix();
 
-        //hacer edificios
-        //Edificios[0].DibujarEdificio(0, 0, 0);
+        //posiciona y dibuja el piso
+        glPushMatrix();
+        miFloor->DibujarFloor(0.0, 0.0, 0.0);
+        glPopMatrix();
 
-
-        ////hacer arboles
-        //Jardin[0].DibujarArbol(0, 0, 0);
-        //Jardin[1].DibujarArbol(-0.5f, 0.2, -0.5);
-
-        //   //glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
-        //glPushMatrix();
-        //glTranslatef(0.0, 1.3, 0.0);
-        //  glutSolidTeapot(0.3);
-        //  glPopMatrix();
-
-
-        //   //Dibujar cubo derecha
-        //   glPushMatrix();
-        //   //glRotatef(45, 0, 0, 1);
-        //       glTranslatef(1.1, -0.7, 0.0);
-        //       glRotatef(30, 0, 0, 1);
-        //       glutSolidCube(0.5);
-        //       glPopMatrix();
-
-        //       glPushMatrix();
-        //       //glRotatef(45, 0, 0, 1);
-        //       glTranslatef(-0.5, -1.0, 0.0);
-        //       glRotatef(-15, 0, 0, 1);
-        //       glutSolidCube(0.5);
-        //       glPopMatrix();
-
-
-        //       glPushMatrix();
-        //       //glRotatef(45, 0, 0, 1);
-        //       glTranslatef(0.3, -1.0, 0.0);
-        //       glRotatef(15, 0, 0, 1);
-        //       glutSolidCube(0.5);
-        //       glPopMatrix();
-
-
-        //       glPushMatrix();
-        //       //glRotatef(45, 0, 0, 1);
-        //       glTranslatef(-1.3, -0.7, 0.0);
-        //       glRotatef(-30, 0, 0, 1);
-        //       glutSolidCube(0.5);
-        //       glPopMatrix();
-
-        //   //Dibujar cubo izquierda
-        //   glPushMatrix();
-        //      //glScalef(2.0, 1.0, 1.0);
-        //       glTranslatef(0.0, 0.0, 0.0);
-        //       //glScalef(2.0, 1.0, 1.0);
-        //       //glutSolidCube(0.5);
-        //       glBegin(GL_TRIANGLES);
-        //           glVertex3f(-0.5, 0.0, 0.0);
-        //           glVertex3f(0.5, 0.0, 0.0);
-        //           glVertex3f(0.0, 0.5, 0.0);
-        //       glEnd();
-        //       glPopMatrix();
-
-        //       GLUquadric* quad;
-        //       quad = gluNewQuadric();
-        //   glPushMatrix();
-        //       glTranslatef(1.2, 0.7, 0.0);
-        //       gluSphere(quad, 0.3, 100, 20);
-        //   glPopMatrix();
-
-        //   glPushMatrix();
-        //   glTranslatef(-1.2, 0.7, 0.0);
-        //   gluSphere(quad, 0.3, 100, 20);
-        //   glPopMatrix();
+       
 
 
         if (shader) shader->end();
@@ -155,18 +124,14 @@ public:
 
  
     {
-        /*for (int i = 0; i < NUM_ARBOLES; i++)
-        {
-            Jardin[i] = ClassArbol();
-            Edificios[i] = ClassEdificio();
-        }*/
-
+        
         
         miCane = new ClassSugarcane();
         miBridge = new ClassBridge();
         miChair = new ClassChair();
         miTree = new ClassTree();
         miTable = new ClassTable();
+        miFloor = new ClassFloor();
 
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);
@@ -201,11 +166,8 @@ public:
         gluPerspective(45, ratio, 1, 500);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        /*gluLookAt(0.0f, 0.0f, 4.0f,
-            0.0, 0.0, -1.0,
-            0.0f, 1.0f, 0.0f);*/
-        gluLookAt(0.0f, 1.0f, 8.0f,
-            0.0, 0.0, -6.0,
+        gluLookAt(10.0f, 10.0f, 10.0f,
+            0.0, 0.0, 0.0,
             0.0f, 1.0f, 0.0f);
     }
     virtual void OnClose(void) {}

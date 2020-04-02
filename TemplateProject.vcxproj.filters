@@ -81,6 +81,7 @@
     <ClInclude Include="ClassChair.h" />
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTable.h" />
+    <ClInclude Include="ClassFloor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -174,6 +175,7 @@
     <ClCompile Include="ClassChair.cpp" />
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTable.cpp" />
+    <ClCompile Include="ClassFloor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
