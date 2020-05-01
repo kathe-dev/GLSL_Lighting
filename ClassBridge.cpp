@@ -8,6 +8,6 @@ ClassBridge::ClassBridge()
 void ClassBridge::DibujarBridge()
 {
 
-	nombreAsignado.DibujarMalla();
+	nombreAsignado.DibujarMallaTextura();
 
 }

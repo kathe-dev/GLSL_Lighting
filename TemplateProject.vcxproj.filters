@@ -82,6 +82,7 @@
     <ClInclude Include="ClassTree.h" />
     <ClInclude Include="ClassTable.h" />
     <ClInclude Include="ClassFloor.h" />
+    <ClInclude Include="ClassLeaf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -176,6 +177,7 @@
     <ClCompile Include="ClassTree.cpp" />
     <ClCompile Include="ClassTable.cpp" />
     <ClCompile Include="ClassFloor.cpp" />
+    <ClCompile Include="ClassLeaf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
@@ -185,5 +187,7 @@
   <ItemGroup>
     <Text Include="fragmentshader.txt" />
     <Text Include="vertexshader.txt" />
+    <Text Include="fragmentshaderT.txt" />
+    <Text Include="vertexshaderT.txt" />
   </ItemGroup>
 </Project>

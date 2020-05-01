@@ -2,6 +2,7 @@
 #include "glm/glm.h"
 #include <stdio.h>
 #include <iostream>
+#include "FreeImage.h"
 
 class AbrirMalla
 {
@@ -10,6 +11,6 @@ public:
 
 	AbrirMalla(char*);
 	void DibujarMalla();
-
+	void DibujarMallaTextura();
 	~AbrirMalla();
 };

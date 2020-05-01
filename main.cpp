@@ -23,6 +23,8 @@
 #include "ClassTree.h"
 #include "ClassTable.h"
 #include "ClassFloor.h"
+#include "ClassLeaf.h"
+#include "FreeImage.h"  //Para textura
 
 //-----------------------------------------------------------------------------
 
@@ -33,20 +35,89 @@ class myWindow : public cwc::glutWindow
 protected:
     cwc::glShaderManager SM;
     cwc::glShader* shader;
+    cwc::glShader* shaderTextura;  //Para textura
     GLuint ProgramObject;
     clock_t time0, time1;
     float timer010;  // timer counting 0->1->0
     bool bUp;        // flag if counting up or down.
     ClassSugarcane* miCane;
-    ClassBridge* miBridge;
+    ClassBridge* miBridge;  //Objeto con textura
     ClassChair* miChair;
     ClassTree* miTree;
     ClassTable* miTable;
     ClassFloor* miFloor;
+    ClassLeaf* miLeaf;
+    GLuint texid; //id de la textura
+    GLfloat movimientoY;
+    GLfloat movimientoX;
+    GLfloat movimientoZ;
+    bool Yup, Ydown;
+    bool Xup, Xdown;
+    bool Zup, Zdown;
 
 
 public:
     myWindow() {}
+
+    void controlMovimiento() {
+        if (Yup)
+        {
+            if (movimientoY + 0.05 >= -4.0) {
+                movimientoY = movimientoY + 0.05;
+            }
+        }
+        if (Ydown) {
+            if (movimientoY - 0.05 >= -4.0) {
+                movimientoY = movimientoY - 0.05;
+            }
+        }
+        if (Xup) {
+            movimientoX = movimientoX + 0.05;
+        }
+        if (Xdown) {
+            movimientoX = movimientoX - 0.05;
+        }
+
+        if (Zup) {
+            movimientoZ = movimientoZ + 0.05;
+        }
+        if (Zdown) {
+            movimientoZ = movimientoZ - 0.05;
+        }
+    }
+
+    void initialize_textures(void)
+    {
+        int w, h;
+        GLubyte* data = 0;
+        //data = glmReadPPM("soccer_ball_diffuse.ppm", &w, &h);
+        //std::cout << "Read soccer_ball_diffuse.ppm, width = " << w << ", height = " << h << std::endl;
+
+        //dib1 = loadImage("soccer_ball_diffuse.jpg"); //FreeImage
+
+        glGenTextures(1, &texid);
+        glBindTexture(GL_TEXTURE_2D, texid);
+        glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+        // Loading JPG file
+        FIBITMAP* bitmap = FreeImage_Load(
+            FreeImage_GetFileType("./Mallas/texPuente.jpg", 0),
+            "./Mallas/texPuente.jpg");  //*** Para Textura: esta es la ruta en donde se encuentra la textura
+
+        FIBITMAP* pImage = FreeImage_ConvertTo32Bits(bitmap);
+        int nWidth = FreeImage_GetWidth(pImage);
+        int nHeight = FreeImage_GetHeight(pImage);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, nWidth, nHeight,
+            0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(pImage));
+
+        FreeImage_Unload(pImage);
+        //
+        glEnable(GL_TEXTURE_2D);
+    }
+
 
 
     virtual void OnRender(void)
@@ -67,13 +138,6 @@ public:
         miCane->DibujarSugarCane();
         glPopMatrix();
 
-        //posiciona y dibuja el puente
-        glPushMatrix();
-        glTranslatef(0.0f, 0.7f, 4.0f);
-        glScalef(3.0f, 3.0f, 3.0f);
-        glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-        miBridge->DibujarBridge();
-        glPopMatrix();
 
         //posiciona y dibuja la silla
         glPushMatrix();
@@ -88,6 +152,15 @@ public:
         glScalef(3.0f, 3.0f, 3.0f);
         miTree->DibujarTree();
         glPopMatrix();
+
+        //posiciona y dibuja la hoja
+        glPushMatrix();
+        controlMovimiento();
+        glTranslatef(movimientoX, movimientoY, movimientoZ);
+        glTranslatef(-4.6f, 4.0f, 0.0f);
+        glScalef(0.2f, 0.2f, 0.2f);
+        miLeaf->DibujarLeaf();
+        glPopMatrix();
         
         //posiciona y dibuja la mesa
         glPushMatrix();
@@ -101,10 +174,22 @@ public:
         miFloor->DibujarFloor(0.0, 0.0, 0.0);
         glPopMatrix();
 
-       
-
-
         if (shader) shader->end();
+
+        /*** Para Textura: llamado al shader para objetos texturizados***/
+        if (shaderTextura) shaderTextura->begin();
+
+            //posiciona y dibuja el puente
+            glPushMatrix();
+            glTranslatef(0.0f, 0.7f, 4.0f);
+            glScalef(3.0f, 3.0f, 3.0f);
+            glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+            
+            glBindTexture(GL_TEXTURE_2D, texid);
+            miBridge->DibujarBridge();
+            glPopMatrix();
+      //glutSolidTeapot(1.0);
+      if (shaderTextura) shaderTextura->end();
 
         glPopMatrix();
 
@@ -120,18 +205,26 @@ public:
 
     // When OnInit is called, a render context (in this case GLUT-Window) 
     // is already available!
-    virtual void OnInit()
 
- 
+    virtual void OnInit()
     {
-        
-        
+        movimientoY = 0.0f;
+        movimientoX = 0.0f;
+        movimientoZ = 0.0f;
+        Yup = false;
+        Ydown = false;
+        Xup = false;
+        Xdown = false;
+        Zdown = false;
+        Zup = false;
+
         miCane = new ClassSugarcane();
         miBridge = new ClassBridge();
         miChair = new ClassChair();
         miTree = new ClassTree();
         miTable = new ClassTable();
         miFloor = new ClassFloor();
+        miLeaf = new ClassLeaf();
 
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);
@@ -145,10 +238,19 @@ public:
             ProgramObject = shader->GetProgramObject();
         }
 
+        //Para Textura: abre los shaders para texturas
+        shaderTextura = SM.loadfromFile("vertexshaderT.txt", "fragmentshaderT.txt");
+        if (shaderTextura == 0)
+            std::cout << "Error Loading, compiling or linking shader\n";
+        else
+        {
+            ProgramObject = shaderTextura->GetProgramObject();
+        }
         time0 = clock();
         timer010 = 0.0f;
         bUp = true;
 
+        initialize_textures();
         DemoLight();
 
     }
@@ -181,6 +283,28 @@ public:
         {
             this->Close(); // Close Window!
         }
+        switch (cAscii)
+        {
+        case 'w':
+            Yup = true;
+            break;
+        case 's':
+            Ydown = true;
+            break;
+        case 'a':
+            Xdown = true;
+            break;
+        case 'd':
+            Xup = true;
+            break;
+        case 'x':
+            Zup = true;
+            break;
+        case 'y':
+            Zdown = true;
+        }
+        
+
     };
 
     virtual void OnKeyUp(int nKey, char cAscii)
@@ -190,6 +314,26 @@ public:
         else if (cAscii == 'f') // f: Fixed Function
             shader->disable();
 
+        switch (cAscii)
+        {
+        case 'w':
+            Yup = false;
+            break;
+        case 's':
+            Ydown = false;
+            break;
+        case 'a':
+            Xdown = false;
+            break;
+        case 'd':
+            Xup = false;
+            break;
+        case 'x':
+            Zup = false;
+            break;
+        case 'y':
+            Zdown = false;
+        }
     }
 
     void UpdateTimer()

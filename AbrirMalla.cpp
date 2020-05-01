@@ -25,3 +25,7 @@ AbrirMalla::~AbrirMalla() {
 void AbrirMalla::DibujarMalla() {
 	glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL);
 }
+
+void AbrirMalla::DibujarMallaTextura() {
+	glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
+}
